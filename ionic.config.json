@@ -1,5 +1,8 @@
 {
-  "name": "TokenMaster",
-  "app_id": "",
-  "type": "ionic-angular"
+  "name": "TokenMasterNewDemo",
+  "app_id": "886e78c2",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }

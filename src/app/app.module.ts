@@ -2,6 +2,15 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { ApiService } from '../app/apiService';
+
+import { QRScanner } from '@ionic-native/qr-scanner';
+import { HttpModule } from '@angular/http';
+
+import { ExternalLoginViewModel } from '../app/externalLoginViewModel';
+
+// import { BrowserTab } from '@ionic-native/browser-tab';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -11,17 +20,29 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AssignDevicePage } from '../pages/assign-device/assign-device';
+import { SelectStandPage } from '../pages/select-stand/select-stand';
+import { ScanDevicePage } from '../pages/scan-device/scan-device';
+import { TransactionsPage } from '../pages/transactions/transactions';
+import { EventsListPage } from '../pages/events-list/events-list';
+
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AssignDevicePage,
+    SelectStandPage,
+    ScanDevicePage,
+    TransactionsPage,
+    EventsListPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,10 +50,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AssignDevicePage,
+    SelectStandPage,
+    ScanDevicePage,
+    TransactionsPage,
+    EventsListPage
   ],
   providers: [
     StatusBar,
+    ApiService,
+    // BrowserTab,
+    QRScanner,
+    InAppBrowser,
+    ExternalLoginViewModel,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

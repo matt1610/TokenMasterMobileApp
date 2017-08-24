@@ -4,14 +4,18 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+   <button ion-button round (click)="StartFbAuth()">FB Login</button>
+   <button ion-button round (click)="GetEvents()">GetEvents</button>
+   <button ion-button round (click)="GoToPage(0)">Pay</button>
+   <button ion-button round (click)="GoToPage(1)">Buy Event Tokens</button>
+   <!-- [hidden]="!LoggedIn" -->
+
+   <hr>
+
+   
+
+  <!-- <p>{{AccessToken}}</p>  -->
+  <!-- <h1>Yo!</h1> -->
 </ion-content>
