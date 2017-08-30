@@ -13,6 +13,11 @@
 </ion-header>
 
 
-<ion-content padding>
-  <button ion-button (click)="SelectEvent(event)" *ngFor="let event of Events">{{event.EventName}}</button>
+<ion-content>
+  <!-- <button ion-button (click)="SelectEvent(event)" *ngFor="let event of Events">{{event.EventName}}</button> -->
+  <ion-list>
+    <button ion-item *ngFor="let event of Events" (click)="SelectEvent(event)">
+      {{ event.Id }}
+    </button>
+  </ion-list>
 </ion-content>

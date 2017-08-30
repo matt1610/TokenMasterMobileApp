@@ -23,6 +23,7 @@ export class SelectStandPage {
   }
 
   ionViewDidLoad() {
+    console.log(this.navParams.get('event'));
     console.log('ionViewDidLoad SelectStandPage');
 
     let loading = this.loadingCtrl.create({
@@ -39,6 +40,7 @@ export class SelectStandPage {
   }
 
   SelectStand(stand) {
+    console.log(stand);
     this.navCtrl.push(ScanDevicePage, {
       event: this.navParams.get('event'),
       stand : stand

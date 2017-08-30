@@ -14,5 +14,8 @@
 
 
 <ion-content padding>
-  <button ion-button (click)="SelectStand(stand)" *ngFor="let stand of Stands">{{stand.Name}}</button>
+  <!-- <button ion-button (click)="SelectStand(stand)" *ngFor="let stand of Stands">{{stand.Name}} - {{stand.StandId}}</button> -->
+  <button ion-item (click)="SelectStand(stand)" *ngFor="let stand of Stands">
+    {{stand.Name}} - {{stand.StandId}}
+  </button>
 </ion-content>

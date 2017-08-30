@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { AssignDevicePage } from '../../pages/assign-device/assign-device';
 import { SelectStandPage } from '../../pages/select-stand/select-stand';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { ApiService } from '../../app/apiService';
+import { AssignDeviceModel } from '../../models/AssignDeviceModel';
+import { ZBar, ZBarOptions } from '@ionic-native/zbar';
 
 /**
  * Generated class for the ScanDevicePage page.
@@ -18,7 +21,11 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 })
 export class ScanDevicePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public qrScanner: QRScanner) {
+  public DeviceId: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public qrScanner: QRScanner,
+    public alertCtrl: AlertController, public apiService: ApiService, public zbar: ZBar) {
+
   }
 
   ionViewDidLoad() {
@@ -28,8 +35,56 @@ export class ScanDevicePage {
   }
 
   StartScan() {
-    this.Scan().then(text => {
-      alert(text);
+    this.ZScan().then(text => {
+      this.DeviceId = text.toString();
+      console.log(this.DeviceId);
+      this.presentConfirm();
+    });
+  }
+
+  presentConfirm() {
+    let alertPrompt = this.alertCtrl.create({
+      title: 'Confirm purchase',
+      message: 'Do you want to buy this book?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Assign Device',
+          handler: () => {
+
+            let assignDeviceModel: AssignDeviceModel = new AssignDeviceModel(this.DeviceId, this.navParams.get('stand').StandId, this.navParams.get('event').Id);
+            console.log(assignDeviceModel);
+            this.apiService.assignDeviceToStand(assignDeviceModel).subscribe(res => {
+              console.log(res);
+            });
+
+          }
+        }
+      ]
+    });
+    alertPrompt.present();
+  }
+
+  public ZScan() {
+    return new Promise((resolve, reject) => {
+      let options: ZBarOptions = {
+        flash: 'off',
+        drawSight: true
+      };
+
+      this.zbar.scan(options)
+        .then(result => {
+          resolve(result); // Scanned code
+        })
+        .catch(error => {
+          reject(error); // Error message
+        });
     });
   }
 

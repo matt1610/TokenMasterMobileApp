@@ -1,31 +1,26 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { ApiService } from '../../app/apiService';
-// import { ExternalLoginViewModel } from '../../app/externalLoginViewModel';
-
-import { ReplaySubject } from 'rxjs/Rx';
-
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Http } from '@angular/http';
-
-// import { BrowserTab } from '@ionic-native/browser-tab';
+import { ReplaySubject } from 'rxjs/Rx';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { AssignDevicePage } from '../../pages/assign-device/assign-device';
-import { SelectStandPage } from '../../pages/select-stand/select-stand';
-import { ScanDevicePage } from '../../pages/scan-device/scan-device';
-import { TransactionsPage } from '../../pages/transactions/transactions';
-import { EventsListPage } from '../../pages/events-list/events-list';
-import { LoginPage } from '../../pages/login/login';
+import { ApiService } from '../../app/apiService';
+import { HomePage } from '../../pages/home/home';
 
-declare var window: any;
-
+/**
+ * Generated class for the LoginPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-login',
+  templateUrl: 'login.html',
 })
-export class HomePage {
+export class LoginPage {
 
   public baseUrl: string = "http://tokenmaster.azurewebsites.net";
-  public Pages: Array<any> = [TransactionsPage, EventsListPage];
+  public Pages: Array<any> = [HomePage];
 
   public LoggedIn: boolean = false;
 
@@ -39,11 +34,6 @@ export class HomePage {
     if (localStorage.getItem('ApiToken') != null) {
       this.LoggedIn = true;
     }
-  }
-
-  LogOut() {
-    localStorage.removeItem('ApiToken');
-    this.navCtrl.push(LoginPage);
   }
 
   private getExternalLoginUrl() {
@@ -79,6 +69,12 @@ export class HomePage {
 
         loginScreenSubject.next(accessToken);
         loginScreenSubject.complete();
+
+        if (localStorage.getItem('ApiToken') != null) {
+          this.navCtrl.push(HomePage);
+        }
+
+        
       },
       err => {
         console.log("InAppBrowser Loadstop Event Error: " + err);
@@ -110,18 +106,6 @@ export class HomePage {
     return this.accessTokenSubject;
   };
 
-  GetEvents() {
-    this.navCtrl.push(AssignDevicePage, {});
-  };
-
-  GoToPage(pageNumber: number) {
-    this.navCtrl.push(this.Pages[pageNumber]);
-  }
-
-
-  GetStandsForEvent(event) {
-
-  }
 
 
 

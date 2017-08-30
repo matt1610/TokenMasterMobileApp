@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { ApiService } from '../app/apiService';
 
@@ -16,9 +16,11 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ZBar, ZBarOptions } from '@ionic-native/zbar';
 
 import { AssignDevicePage } from '../pages/assign-device/assign-device';
 import { SelectStandPage } from '../pages/select-stand/select-stand';
@@ -37,7 +39,8 @@ import { EventsListPage } from '../pages/events-list/events-list';
     SelectStandPage,
     ScanDevicePage,
     TransactionsPage,
-    EventsListPage
+    EventsListPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -55,12 +58,13 @@ import { EventsListPage } from '../pages/events-list/events-list';
     SelectStandPage,
     ScanDevicePage,
     TransactionsPage,
-    EventsListPage
+    EventsListPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     ApiService,
-    // BrowserTab,
+    ZBar,
     QRScanner,
     InAppBrowser,
     ExternalLoginViewModel,
